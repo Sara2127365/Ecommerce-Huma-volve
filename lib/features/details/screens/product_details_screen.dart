@@ -1,16 +1,13 @@
-
+import 'package:ecommerce_app_huma_volve/features/home/domain/entities/home_product_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:ecommerce_app_huma_volve/features/home/models/products_model.dart';
+import 'package:ecommerce_app_huma_volve/features/home/data/models/products_model.dart';
 import '../../../core/theme.dart';
 import '../../../core/widgets/primary_button.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  final ProductsModel product;
+  final HomeProductEntity product;
 
-  const ProductDetailsScreen({
-    super.key,
-    required this.product,
-  });
+  const ProductDetailsScreen({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +30,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   color: Colors.white.withValues(alpha: 0.9),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.arrow_back_ios_new,
-                  size: 16,
-                ),
+                child: const Icon(Icons.arrow_back_ios_new, size: 16),
               ),
               onPressed: () => Navigator.pop(context),
             ),
@@ -48,10 +42,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     color: Colors.white.withValues(alpha: 0.9),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.favorite_border,
-                    size: 18,
-                  ),
+                  child: const Icon(Icons.favorite_border, size: 18),
                 ),
                 onPressed: () {},
               ),
@@ -88,9 +79,7 @@ class ProductDetailsScreen extends StatelessWidget {
             child: Container(
               decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(32),
-                ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
               ),
               transform: Matrix4.translationValues(0, -32, 0),
               child: Padding(
@@ -104,58 +93,46 @@ class ProductDetailsScreen extends StatelessWidget {
                         Expanded(
                           child: Text(
                             product.title ?? 'No title',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineLarge
-                                ?.copyWith(
-                                  fontSize: 28,
-                                  height: 1.2,
-                                ),
+                            style: Theme.of(context).textTheme.headlineLarge
+                                ?.copyWith(fontSize: 28, height: 1.2),
                           ),
                         ),
                         const SizedBox(width: 16),
                         Text(
                           '\$${(product.price ?? 0).toStringAsFixed(2)}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge
-                              ?.copyWith(
-                                color: AppTheme.primary,
-                                fontSize: 24,
-                              ),
+                          style: Theme.of(context).textTheme.headlineLarge
+                              ?.copyWith(color: AppTheme.primary, fontSize: 24),
                         ),
                       ],
                     ),
                     const SizedBox(height: 24),
                     Text(
                       'Category',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       product.category?.name ?? 'Uncategorized',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: 16,
-                          ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(fontSize: 16),
                     ),
                     const SizedBox(height: 24),
                     Text(
                       'Description',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       product.description ?? 'No description available.',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            height: 1.6,
-                            fontSize: 16,
-                          ),
+                        height: 1.6,
+                        fontSize: 16,
+                      ),
                     ),
                     const SizedBox(height: 32),
                     PrimaryButton(

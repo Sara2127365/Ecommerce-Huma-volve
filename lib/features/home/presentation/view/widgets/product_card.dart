@@ -1,16 +1,13 @@
-
-import 'package:ecommerce_app_huma_volve/features/home/models/products_model.dart';
+import 'package:ecommerce_app_huma_volve/features/home/data/models/products_model.dart';
+import 'package:ecommerce_app_huma_volve/features/home/domain/entities/home_product_entity.dart';
 import 'package:flutter/material.dart';
-import '../../../core/theme.dart';
-import '../../details/screens/product_details_screen.dart';
+import '../../../../../core/theme.dart';
+import '../../../../details/screens/product_details_screen.dart';
 
 class ProductCard extends StatelessWidget {
-  final ProductsModel product;
+  final HomeProductEntity product;
 
-  const ProductCard({
-    super.key,
-    required this.product,
-  });
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +25,8 @@ class ProductCard extends StatelessWidget {
                 ProductDetailsScreen(product: product),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
+                  return FadeTransition(opacity: animation, child: child);
+                },
           ),
         );
       },
