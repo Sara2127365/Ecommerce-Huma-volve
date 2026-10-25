@@ -14,8 +14,7 @@ class ServiceSignup {
   "email": signupRequestModel.email,
   "name": signupRequestModel.name,
   "password": signupRequestModel.password,
-  
-  "avatar": "https://www.gravatar.com/avatar/?d=mp&s=200&utm_source=chatgpt.com"},
+   "avatar": "https://www.gravatar.com/avatar/?d=mp&s=200&utm_source=chatgpt.com"},
     );
     final Map<String, dynamic> dataJson = response.data;
     final dataObject = SignupResponseModel.fromJson(dataJson);

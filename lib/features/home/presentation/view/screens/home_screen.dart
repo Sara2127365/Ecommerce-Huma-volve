@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_app_huma_volve/features/home/presentation/veiw_model/home_cubit.dart';
 import 'package:ecommerce_app_huma_volve/features/home/presentation/veiw_model/home_state.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +17,25 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedCategoryIndex = 0;
+  late final ScrollController scrollController;
 
   @override
   void initState() {
+    scrollController = ScrollController();
+    scrollController.addListener(_onListen);
     super.initState();
     context.read<HomeCubit>().loadHomeData();
+  }
+
+  void _onListen() {
+    final pixels = scrollController.position.pixels; //current postion
+    final max = scrollController.position.maxScrollExtent; //end
+    final int triggerDistance = 300;
+    print("current pixels : $pixels,max : $max");
+
+    if (pixels >= max - triggerDistance) {
+      context.read<HomeCubit>().loadMoreProducts();
+    }
   }
 
   @override
@@ -70,23 +83,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 32),
                     Text(
                       'Explore',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayLarge
-                          ?.copyWith(fontSize: 36),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.displayLarge?.copyWith(fontSize: 36),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Best trendy collection!',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(fontSize: 18),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(fontSize: 18),
                     ),
                     const SizedBox(height: 32),
                     Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16),
@@ -101,9 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: 'Search clothes...',
-                          hintStyle: TextStyle(
-                            color: Colors.grey.shade400,
-                          ),
+                          hintStyle: TextStyle(color: Colors.grey.shade400),
                           prefixIcon: const Icon(
                             Icons.search,
                             color: Colors.grey,
@@ -141,18 +149,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
 
                         if (state is CategoriesError) {
-                          return Center(
-                            child: Text(state.errorMessage),
-                          );
+                          return Center(child: Text(state.errorMessage));
                         }
 
                         if (state is CategoriesSuccess) {
                           final categories = state.categories;
 
                           if (categories.isEmpty) {
-                            return const Text(
-                              'No categories found',
-                            );
+                            return const Text('No categories found');
                           }
 
                           return SizedBox(
@@ -167,8 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   label: categories[index].name.isNotEmpty
                                       ? categories[index].name
                                       : 'Category',
-                                  isSelected:
-                                      _selectedCategoryIndex == index,
+                                  isSelected: _selectedCategoryIndex == index,
                                   onTap: () {
                                     setState(() {
                                       _selectedCategoryIndex = index;
@@ -199,7 +202,9 @@ class _HomeScreenState extends State<HomeScreen> {
               buildWhen: (previous, current) {
                 return current is ProductsLoading ||
                     current is ProductsSuccess ||
-                    current is ProductsError;
+                    current is ProductsError ||
+                    current is ProductIsLoadingError ||
+                    current is ProductsLoadingMore;
               },
               builder: (context, state) {
                 if (state is ProductsLoading) {
@@ -232,47 +237,47 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Center(
                         child: Padding(
                           padding: EdgeInsets.all(24),
-                          child: Text(
-                            'No products in this category',
-                          ),
+                          child: Text('No products in this category'),
                         ),
                       ),
                     );
                   }
 
                   return SliverPadding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     sliver: SliverGrid(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.7,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                      ),
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          return ProductCard(
-                            product: products[index],
-                          );
-                        },
-                        childCount: products.length,
-                      ),
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.7,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                          ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        return ProductCard(product: products[index]);
+                      }, childCount: products.length),
                     ),
                   );
                 }
 
-                return const SliverToBoxAdapter(
-                  child: SizedBox.shrink(),
-                );
+                return const SliverToBoxAdapter(child: SizedBox.shrink());
+              },
+            ),
+            BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                if (state is ProductsLoadingMore) {
+                  return SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.all(25),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                  );
+                }
+                return const SliverToBoxAdapter(child: SizedBox(height: 24),);
               },
             ),
 
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 24),
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 24)),
           ],
         ),
       ),
