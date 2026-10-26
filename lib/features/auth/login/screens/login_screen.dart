@@ -10,7 +10,8 @@ import '../../../main_navigation/screens/main_navigation_screen.dart';
 import '../../sign_up/screens/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final int productId;
+  const LoginScreen({super.key, required this.productId});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -125,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         print('refreshtoken ${response.refresh_token}');
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (context) => MainNavigationScreen(),
+                            builder: (context) => MainNavigationScreen(productId:widget.productId ),
                           ),
                         );
                       } on DioException catch (e) {
@@ -148,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    const SignUpScreen(),
+                                     SignUpScreen(productId: widget.productId),
                             transitionsBuilder:
                                 (
                                   context,

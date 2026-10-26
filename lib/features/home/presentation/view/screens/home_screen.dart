@@ -9,7 +9,8 @@ import '../widgets/product_card.dart';
 import '../widgets/category_chip.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final int productId;
+   HomeScreen({super.key, required this.productId});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -254,7 +255,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisSpacing: 16,
                           ),
                       delegate: SliverChildBuilderDelegate((context, index) {
-                        return ProductCard(product: products[index]);
+                        return ProductCard(
+                          product: products[index],
+                           productId:widget.productId ,
+                        );
                       }, childCount: products.length),
                     ),
                   );
@@ -273,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 }
-                return const SliverToBoxAdapter(child: SizedBox(height: 24),);
+                return const SliverToBoxAdapter(child: SizedBox(height: 24));
               },
             ),
 

@@ -15,7 +15,8 @@ import '../../cart/screens/cart_screen.dart';
 import '../../profile/screens/profile_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
-  const MainNavigationScreen({super.key});
+  final int productId;
+  const MainNavigationScreen({super.key, required this.productId});
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
@@ -49,10 +50,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     final List<Widget> _screens = [
       BlocProvider(
         create: (BuildContext context) => homeCubit,
-        child: const HomeScreen(),
+        child:  HomeScreen(productId: widget.productId),
       ),
       const CartScreen(),
-      const ProfileScreen(),
+       ProfileScreen(productId: widget.productId,),
     ];
     return Scaffold(
       body: _screens[_currentIndex],

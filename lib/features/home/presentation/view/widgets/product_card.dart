@@ -6,8 +6,9 @@ import '../../../../details/screens/product_details_screen.dart';
 
 class ProductCard extends StatelessWidget {
   final HomeProductEntity product;
+  final int productId;
 
-  const ProductCard({super.key, required this.product});
+  const ProductCard({super.key, required this.product, required this.productId});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class ProductCard extends StatelessWidget {
           PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 500),
             pageBuilder: (context, animation, secondaryAnimation) =>
-                ProductDetailsScreen(product: product),
+                ProductDetailsScreen(product: product, productId:productId),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
                   return FadeTransition(opacity: animation, child: child);

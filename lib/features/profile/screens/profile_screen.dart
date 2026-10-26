@@ -6,7 +6,8 @@ import '../widgets/profile_menu_item.dart';
 import '../../auth/login/screens/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final int productId;
+  const ProfileScreen({super.key, required this.productId});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
                         PageRouteBuilder(
                           pageBuilder:
                               (context, animation, secondaryAnimation) =>
-                                  const LoginScreen(),
+                                   LoginScreen(productId: productId,),
                           transitionsBuilder:
                               (context, animation, secondaryAnimation, child) {
                                 return FadeTransition(

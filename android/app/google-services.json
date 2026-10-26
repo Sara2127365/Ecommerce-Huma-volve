@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "239582125164",
+    "project_id": "taxi-d8c7e",
+    "storage_bucket": "taxi-d8c7e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239582125164:android:b132c504fb50ab9297cc49",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce_app_huma_volve"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgXwiMufxOhFvRQ06ihWHVve44xuGHWX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

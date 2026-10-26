@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_huma_volve/features/details/widgets/share_product_button.dart';
 import 'package:ecommerce_app_huma_volve/features/home/domain/entities/home_product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app_huma_volve/features/home/data/models/products_model.dart';
@@ -6,8 +7,9 @@ import '../../../core/widgets/primary_button.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final HomeProductEntity product;
+  final int productId;
 
-  const ProductDetailsScreen({super.key, required this.product});
+  const ProductDetailsScreen({super.key, required this.product, required this.productId});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,11 @@ class ProductDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppTheme.background,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        
+      ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -34,7 +41,7 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
               onPressed: () => Navigator.pop(context),
             ),
-            actions: [
+            actions:[ShareProductButton(productId: productId.toString()),
               IconButton(
                 icon: Container(
                   padding: const EdgeInsets.all(8),

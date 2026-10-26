@@ -10,7 +10,8 @@ import '../../../../core/theme.dart';
 import '../../login/screens/login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+  final int productId;
+  const SignUpScreen({super.key, required this.productId});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -120,7 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 40),
                 PrimaryButton(
-                   isLoading: isLoading,
+                  isLoading: isLoading,
                   text: 'Sign Up',
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
@@ -141,7 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
+                            builder: (context) =>  LoginScreen(productId: widget.productId,),
                           ),
                         );
                       } on DioException catch (e) {
@@ -167,7 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    const LoginScreen(),
+                                     LoginScreen(productId:widget.productId ),
                             transitionsBuilder:
                                 (
                                   context,

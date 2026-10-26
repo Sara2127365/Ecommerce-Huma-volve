@@ -5,7 +5,8 @@ import '../../../core/theme.dart';
 import '../../auth/login/screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  final int productId;
+  const SplashScreen({super.key, required this.productId});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -29,19 +30,19 @@ class _SplashScreenState extends State<SplashScreen> {
           context,
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const MainNavigationScreen(),
+                 MainNavigationScreen(productId: widget.productId),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
                   return FadeTransition(opacity: animation, child: child);
                 },
           ),
         );
-      }else{
-         Navigator.pushReplacement(
+      } else {
+        Navigator.pushReplacement(
           context,
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const LoginScreen(),
+                 LoginScreen(productId: widget.productId),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
                   return FadeTransition(opacity: animation, child: child);
